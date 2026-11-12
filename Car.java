@@ -29,8 +29,9 @@ public abstract class Car implements Movable{
     }
 
     public double getCurrentSpeed() {
-        return currentSpeed;
-    }
+        // sanity check
+        if(0 <= currentSpeed && currentSpeed <= enginePower){ return currentSpeed;}
+        else{IO.println("Current speed should be between 0 and "+ enginePower); return 0.0;}}
 
     public Color getColor() {
         return color;
@@ -55,6 +56,18 @@ public abstract class Car implements Movable{
     public void decrementSpeed(double amount) {
         currentSpeed = getCurrentSpeed() - speedFactor() * amount;
     }
+
+    public void gas(double amount) {
+        if(0 <= amount && amount <= 1) {incrementSpeed(amount);}
+        else{IO.println("Gas must be value between 0 and 1.");}
+    }
+
+    public void brake(double amount) {
+        if(0 <= amount && amount <= 1) {decrementSpeed(amount);}
+        else{IO.println("Brake must be value between 0 and 1.");}
+    }
+
+
 
     @Override
     public void move(){
